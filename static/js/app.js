@@ -15,26 +15,35 @@ function DrawBargraph(name) {
         var playerPassing = playerData.passing;
         var playerPhysic = playerData.physic;
         var playerShooting = playerData.shooting;
+        var playerDefending = playerData.defending;
+        var playerDribbling = playerData.dribbling;
 
         var playerName = playerData.short_name;
 
         var playerStats = [playerOverall, playerPace, playerPassing, playerPhysic,
-            playerShooting];
+            playerShooting, playerDefending, playerDribbling];
 
 
         console.log(playerOverall, playerPace, playerPassing, playerPhysic,
             playerShooting);
 
         var barData = {
-            x: ["Player Overall", "Player Pace", "Player Passing", "Player Physic",
-        "Player Shooting"],
-            y: playerStats,
-            type: "bar",
+            theta: ["Player Overall", "Player Pace", "Player Passing", "Player Physic",
+        "Player Shooting", "Player Defending", "Player Dribbling"],
+            r : playerStats,
+            type: "scatterpolar",
+            fill: 'toself'
         }
 
         var barArray = [barData];
 
         var barLayout = {
+            polar: {
+                radialaxis: {
+                    visible: true,
+                    range: [0,100]
+                }
+            },
             title: `${playerName} Fifa 20' Player Attributes`
         };
 
