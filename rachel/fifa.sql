@@ -1,6 +1,7 @@
 drop table if exists fifa_df1;
 
 create table fifa_df1 (
+    sofifa_id int primary key,
     player_url varchar(1000),
     short_name varchar(200),
     age int,
