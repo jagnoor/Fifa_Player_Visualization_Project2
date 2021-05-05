@@ -37,6 +37,49 @@ def IndexRoute():
     webpage = render_template("index.html")
     return webpage
 
+@app.route("/fifadata")
+def QueryFifadata():
+    ''' Query the database for population numbers and return the results as a JSON. '''
+
+    # Open a session, run the query, and then close the session again
+    session = Session(engine)
+    results = session.query(table.sofifa_id, table.player_url, table.short_name,
+     table.age, table.nationality, table.club, table.overall, table.wage_eur, table.player_positions,
+     table.pace, table.shooting, table.passing, table.dribbling, table.defending, table.physic).all()
+    session.close 
+
+    # Create a list of dictionaries, with each dictionary containing one row from the query. 
+    all_fifa = []
+    for sofifa_id, player_url, short_name, age, nationality, club, overall, wage_eur, player_positions, pace, shooting, passing, dribbling, defending, physic in results:
+        dict = {}
+        dict["fifa_id"] = sofifa_id
+        dict["player_url"] = player_url
+        dict["short_name"] = short_name
+        dict["age"] = age
+        dict['nationality'] = nationality
+        dict["club"] = club
+        dict["overall"] = overall
+        dict["wage_eur"] = wage_eur
+        dict["player_positions"] = player_positions
+        dict["pace"] = pace
+        dict["shooting"] = shooting
+        dict["passing"] = passing
+        dict["dribbling"] = dribbling
+        dict["defending"] = defending
+        dict["physic"] = physic
+        all_fifa.append(dict)
+
+    # Return the jsonified result. 
+    return jsonify(all_fifa)
+
+@app.route("/compare")
+def QueryCompare():
+    ''' This function runs when the browser loads the index route. 
+        Note that the html file must be located in a folder called templates. '''
+
+    webpage = render_template("compare.html")
+    return webpage
+
 
 if __name__ == '__main__':
     app.run(debug=True)

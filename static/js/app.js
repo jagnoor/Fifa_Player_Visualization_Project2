@@ -3,13 +3,12 @@ console.log("app.js loaded");
 function DrawBargraph(name) {
     console.log(`DrawBargraph(${name})`);
 
-    d3.csv("/rachel/clean.csv").then(data => {
+    d3.json("/fifadata").then(data => {
         // console.log(data);
 
         var filteredData = data.filter( s => s.short_name == name);
         var playerData = filteredData[0];
 
-        console.log(playerData);
 
         var playerOverall = playerData.overall;
         var playerPace = playerData.pace;
@@ -22,16 +21,9 @@ function DrawBargraph(name) {
         var playerStats = [playerOverall, playerPace, playerPassing, playerPhysic,
             playerShooting];
 
-        console.log(playerData);
 
         console.log(playerOverall, playerPace, playerPassing, playerPhysic,
             playerShooting);
-
-        // var otu_ids = result.otu_ids;
-        // var otu_labels = result.otu_labels;
-        // var sample_values = result.sample_values;
-
-        // yticks = otu_ids.slice(0,10).map(otuId => `OTU ${otuId}`).reverse();
 
         var barData = {
             x: ["Player Overall", "Player Pace", "Player Passing", "Player Physic",
@@ -55,10 +47,50 @@ function optionChanged(newName) {
     console.log(`User Selected ${newName}`);
 
     DrawBargraph(newName);
-    // DrawBubblechart(newSampleId);
-    // ShowMetadata(newSampleId);
-    // washData(newSampleId);
+
 }
+
+// function initDashboard() {
+//     console.log("initDashboard()");
+
+//     //populate the dropdown
+//     var selector = d3.select("#selDataset");
+
+//     // comes from office hours with Dom
+//     d3.csv("/rachel/clean.csv").then(data => {
+//         // console.log(data);
+
+//         var playerName = data.map(function(d) {return d.short_name;});
+
+
+
+//         for (var i = 0; i < data.length; i++){
+
+//             var name = data[i].short_name;
+
+//             selector.append("option")
+//             .text(name)
+//             .property("value", name);
+
+//         };
+
+//         var id = playerName[0];
+
+//         console.log(id);
+
+//         // // Draw the graphs and the metadata
+//         DrawBargraph(id);
+//         // DrawBubblechart(id);
+//         // ShowMetadata(id);
+//         // washData(id);
+
+
+//     });
+
+//     //updated the bargraph
+//     //update the bubblechart
+//     //updated the demographic information
+// };
 
 function initDashboard() {
     console.log("initDashboard()");
@@ -67,11 +99,10 @@ function initDashboard() {
     var selector = d3.select("#selDataset");
 
     // comes from office hours with Dom
-    d3.csv("/rachel/clean.csv").then(data => {
+    d3.json("/fifadata").then(data => {
         // console.log(data);
 
         var playerName = data.map(function(d) {return d.short_name;});
-
 
 
         for (var i = 0; i < data.length; i++){
@@ -88,18 +119,11 @@ function initDashboard() {
 
         console.log(id);
 
-        // // Draw the graphs and the metadata
+        // // // Draw the graphs and the metadata
         DrawBargraph(id);
-        // DrawBubblechart(id);
-        // ShowMetadata(id);
-        // washData(id);
 
 
     });
-
-    //updated the bargraph
-    //update the bubblechart
-    //updated the demographic information
 };
 
 initDashboard();
