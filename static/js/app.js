@@ -18,6 +18,8 @@ function DrawBargraph(name) {
         var playerDefending = playerData.defending;
         var playerDribbling = playerData.dribbling;
 
+        var imageURL = "https://cdn.sofifa.com/players/158/023/20_120.png";
+
         var playerName = playerData.short_name;
 
         var playerStats = [playerOverall, playerPace, playerPassing, playerPhysic,
@@ -137,6 +139,11 @@ function initDashboard() {
 
 initDashboard();
 
+// index.html graph ///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+function indexGraph() {
+
 var trace1 = {
     x: ["beer", "wine", "martini", "margarita",
       "ice tea", "rum & coke", "mai tai", "gin & tonic"],
@@ -181,3 +188,6 @@ var trace1 = {
 
   Plotly.newPlot("plot-c", dataNewNew, layout);
 
+}
+
+indexGraph ();
