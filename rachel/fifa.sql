@@ -15,7 +15,8 @@ create table fifa_df1 (
     passing int,
     dribbling int,
     defending int,
-    physic int
+    physic int,
+    Continent varchar(200)
     );
     
 select * from fifa_df1;

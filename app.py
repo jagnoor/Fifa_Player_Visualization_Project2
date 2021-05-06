@@ -45,12 +45,12 @@ def QueryFifadata():
     session = Session(engine)
     results = session.query(table.sofifa_id, table.player_url, table.short_name,
      table.age, table.nationality, table.club, table.overall, table.wage_eur, table.player_positions,
-     table.pace, table.shooting, table.passing, table.dribbling, table.defending, table.physic).all()
-    session.close 
+     table.pace, table.shooting, table.passing, table.dribbling, table.defending, table.physic, table.continent).all()
+    session.close()
 
     # Create a list of dictionaries, with each dictionary containing one row from the query. 
     all_fifa = []
-    for sofifa_id, player_url, short_name, age, nationality, club, overall, wage_eur, player_positions, pace, shooting, passing, dribbling, defending, physic in results:
+    for sofifa_id, player_url, short_name, age, nationality, club, overall, wage_eur, player_positions, pace, shooting, passing, dribbling, defending, physic, continent in results:
         dict = {}
         dict["fifa_id"] = sofifa_id
         dict["player_url"] = player_url
@@ -67,6 +67,7 @@ def QueryFifadata():
         dict["dribbling"] = dribbling
         dict["defending"] = defending
         dict["physic"] = physic
+        dict["continent"] = continent
         all_fifa.append(dict)
 
     # Return the jsonified result. 
