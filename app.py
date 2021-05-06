@@ -73,6 +73,64 @@ def QueryFifadata():
     # Return the jsonified result. 
     return jsonify(all_fifa)
 
+@app.route("/output")
+def QueryOutput():
+    ''' Query the database for population numbers and return the results as a JSON. '''
+
+    # Open a session, run the query, and then close the session again
+    session = Session(engine)
+    results = session.query(table.sofifa_id, table.player_url, table.short_name,
+     table.age, table.nationality, table.club, table.overall, table.wage_eur, table.player_positions,
+     table.pace, table.shooting, table.passing, table.dribbling, table.defending, table.physic, table.continent).all()
+    session.close()
+
+    data = {}
+    data["name"] = "DISTRIBUTION OF TOP 1000 PLAERS DUE TO NATIONALITY"
+    data["children"] = []
+    # Split dataset into Continents: thank you Dom and TA's 
+
+    for continent in results:
+        
+        continent_set = results[results["continent"]==continent]
+        continent_dict = {}
+        continent_dict["name"] = continent
+        continent_dict["children"] = []
+        data["children"].append(continent_dict)
+        
+        for country in continent_set['nationality'].unique():
+            
+            countries_set = continent_set[continent_set['nationality']==country][['short_name', 'overall']]
+            country_dict = {}
+            country_dict["name"] = country
+            country_dict["children"] = []
+            continent_dict['children'].append(country_dict)
+
+            
+            for player in countries_set.values:
+                
+                player_dict = {}
+                player_dict['name'] = player[0]
+                player_dict['size'] = player[1]
+                country_dict["children"].append(player_dict)
+
+    # North_america_dict = {}
+    # North_america_dict['name'] = 'North_america'
+    # North_america_dict['children'] = []
+    # for country in North_america['nationality'].unique():
+    #     list_of_countries = North_america[North_america['nationality']==country][['short_name', 'overall']].rename(columns={'short_name': 'name', 'overall': 'size'})
+    #     tmp_dict = {}
+    #     tmp_dict["name"] = country
+    #     tmp_dict["children"] = []
+    #     for row in list_of_countries.values:
+    #         player_tmp = {}
+    #         player_tmp['name'] = row[0]
+    #         player_tmp['size'] = row[1]
+    #         tmp_dict["children"].append(player_tmp)
+    #     North_america_dict['children'].append(tmp_dict)
+
+    # Return the jsonified result. 
+    return jsonify(data)
+
 @app.route("/compare")
 def QueryCompare():
     ''' This function runs when the browser loads the index route. 

@@ -79,6 +79,7 @@ function reactGraphs() {
 
   d3.json("/fifadata").then(root => {  
 
+    // console.log(root);
 
     var argentina_filter = root.filter( a => a.nationality  == "Argentina").filter(a => a.overall > 80);
     var brazil_filter = root.filter( a => a.nationality  == "Brazil").filter(a => a.overall > 80);
@@ -86,11 +87,34 @@ function reactGraphs() {
     var chile_filter = root.filter( a => a.nationality  == "Chile").filter(a => a.overall > 80);
     var ecuador_filter = root.filter( a => a.nationality  == "Ecuador").filter(a => a.overall > 80);
 
+    var data = {};
+    data["name"] = "TESTING"; 
+    data["children"] = [];
+
+    // Loop through root
+    for (var i = 0; i < root.length; i++)
+    {
+      var continent = root[i].continent; 
+      
+      var dict = {};
+      dict["name"] = continent; 
+      dict["children"] = []; 
+
+      data["children"].push(dict); 
+    }
+
+    console.log(data); 
+
     var argentina = []
     for (var i = 0; i < argentina_filter.length; i++) {
-      argentina["name"] = argentina_filter.map(function(d) {return d.short_name;});
-      argentina["overall"] = argentina_filter.map(function(d) {return d.overall;});
+      var dict = {}
+      dict["name"] = argentina_filter[i].short_name; 
+      dict["overall"] = argentina_filter[i].overall; 
+      argentina.push(dict); 
     }
+
+    
+
 
     var brazil = {}
     for (var i = 0; i < brazil_filter.length; i++) {
