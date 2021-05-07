@@ -150,81 +150,81 @@ d3.json("/fifadata").then( club => {
     //  console.log(d3);
   
 
-  var svg = d3.select("svg"),
-      margin = 20,
-      diameter = +svg.attr("width"),
-      g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+  // var svg = d3.select("svg"),
+  //     margin = 20,
+  //     diameter = +svg.attr("width"),
+  //     g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
   
-  var color = d3.scaleSequential(d3.interpolateViridis)
-      .domain([-4, 4]);
+  // var color = d3.scaleSequential(d3.interpolateViridis)
+  //     .domain([-4, 4]);
   
-  var pack = d3.pack()
-      .size([diameter - margin, diameter - margin])
-      .padding(2);
+  // var pack = d3.pack()
+  //     .size([diameter - margin, diameter - margin])
+  //     .padding(2);
 
 
-  d3.json("/fifadata").then(root => {  
+  // d3.json("/fifadata").then(root => {  
 
-    // console.log(root);
+  //   // console.log(root);
 
-    var argentina_filter = root.filter( a => a.nationality  == "Argentina").filter(a => a.overall > 80);
-    var brazil_filter = root.filter( a => a.nationality  == "Brazil").filter(a => a.overall > 80);
-    var colombia_filter = root.filter( a => a.nationality  == "Colombia").filter(a => a.overall > 80);
-    var chile_filter = root.filter( a => a.nationality  == "Chile").filter(a => a.overall > 80);
-    var ecuador_filter = root.filter( a => a.nationality  == "Ecuador").filter(a => a.overall > 80);
+  //   var argentina_filter = root.filter( a => a.nationality  == "Argentina").filter(a => a.overall > 80);
+  //   var brazil_filter = root.filter( a => a.nationality  == "Brazil").filter(a => a.overall > 80);
+  //   var colombia_filter = root.filter( a => a.nationality  == "Colombia").filter(a => a.overall > 80);
+  //   var chile_filter = root.filter( a => a.nationality  == "Chile").filter(a => a.overall > 80);
+  //   var ecuador_filter = root.filter( a => a.nationality  == "Ecuador").filter(a => a.overall > 80);
 
-    var data = {};
-    data["name"] = "TESTING"; 
-    data["children"] = [];
+  //   var data = {};
+  //   data["name"] = "TESTING"; 
+  //   data["children"] = [];
 
-    // Loop through root
-    for (var i = 0; i < root.length; i++)
-    {
-      var continent = root[i].continent; 
+  //   // Loop through root
+  //   for (var i = 0; i < root.length; i++)
+  //   {
+  //     var continent = root[i].continent; 
       
-      var dict = {};
-      dict["name"] = continent; 
-      dict["children"] = []; 
+  //     var dict = {};
+  //     dict["name"] = continent; 
+  //     dict["children"] = []; 
 
-      data["children"].push(dict); 
-    }
+  //     data["children"].push(dict); 
+  //   }
 
-    // console.log(data); 
+  //   // console.log(data); 
 
-    var argentina = []
-    for (var i = 0; i < argentina_filter.length; i++) {
-      var dict = {}
-      dict["name"] = argentina_filter[i].short_name; 
-      dict["overall"] = argentina_filter[i].overall; 
-      argentina.push(dict); 
-    }
+  //   var argentina = []
+  //   for (var i = 0; i < argentina_filter.length; i++) {
+  //     var dict = {}
+  //     dict["name"] = argentina_filter[i].short_name; 
+  //     dict["overall"] = argentina_filter[i].overall; 
+  //     argentina.push(dict); 
+  //   }
 
     
 
 
-    var brazil = {}
-    for (var i = 0; i < brazil_filter.length; i++) {
-      brazil["name"] = brazil_filter.map(function(d) {return d.short_name;});
-      brazil["overall"] = brazil_filter.map(function(d) {return d.overall;});
-    }
+  //   var brazil = {}
+  //   for (var i = 0; i < brazil_filter.length; i++) {
+  //     brazil["name"] = brazil_filter.map(function(d) {return d.short_name;});
+  //     brazil["overall"] = brazil_filter.map(function(d) {return d.overall;});
+  //   }
 
-    var colombia = []
-    for (var i = 0; i < colombia_filter.length; i++) {
-      colombia["name"] = colombia_filter.map(function(d) {return d.short_name;});
-      colombia["overall"] = colombia_filter.map(function(d) {return d.overall;});
-    }
+  //   var colombia = []
+  //   for (var i = 0; i < colombia_filter.length; i++) {
+  //     colombia["name"] = colombia_filter.map(function(d) {return d.short_name;});
+  //     colombia["overall"] = colombia_filter.map(function(d) {return d.overall;});
+  //   }
 
-    var chile = []
-    for (var i = 0; i < chile_filter.length; i++) {
-      chile["name"] = chile_filter.map(function(d) {return d.short_name;});
-      chile["overall"] = chile_filter.map(function(d) {return d.overall;});
-    }
+  //   var chile = []
+  //   for (var i = 0; i < chile_filter.length; i++) {
+  //     chile["name"] = chile_filter.map(function(d) {return d.short_name;});
+  //     chile["overall"] = chile_filter.map(function(d) {return d.overall;});
+  //   }
 
-    var ecuador = []
-    for (var i = 0; i < ecuador_filter.length; i++) {
-      ecuador["name"] = ecuador_filter.map(function(d) {return d.short_name;});
-      ecuador["overall"] = ecuador_filter.map(function(d) {return d.overall;});
-    }
+  //   var ecuador = []
+  //   for (var i = 0; i < ecuador_filter.length; i++) {
+  //     ecuador["name"] = ecuador_filter.map(function(d) {return d.short_name;});
+  //     ecuador["overall"] = ecuador_filter.map(function(d) {return d.overall;});
+  //   }
 
 
 
@@ -289,6 +289,8 @@ d3.json("/fifadata").then( club => {
     //   node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
     //   circle.attr("r", function(d) { return d.r * k; });
     // }
-  });
+  // });
     // });  
+
+    
     
