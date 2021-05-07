@@ -18,8 +18,6 @@ function DrawBargraph(name) {
         var playerDefending = playerData.defending;
         var playerDribbling = playerData.dribbling;
 
-        var imageURL = "https://cdn.sofifa.com/players/158/023/20_120.png";
-
         var playerName = playerData.short_name;
 
         var playerStats = [playerOverall, playerPace, playerPassing, playerPhysic,
