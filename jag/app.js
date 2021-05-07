@@ -1,5 +1,4 @@
 
-
 var svg = d3.select("svg"),
 margin = 20,
 diameter = +svg.attr("width"),
@@ -14,10 +13,6 @@ var pack = d3.pack()
 
 d3.json("output.json").then(function(root) {
 // if (error) throw error;
-
-d3.group(arrayData, groupByContinentThenByCountry): Map
-    groupByContinentThenByCountry = d3.group(data, d => d.continent, d => d.country)
-
 
     console.log(root.name)
 
