@@ -82,5 +82,40 @@ def QueryCompare():
     return webpage
 
 
+#import player)value table 
+
+table2 = base.classes.player_value
+
+
+
+@app.route("/playervalue")
+def Queryplayervalue():
+    ''' Query the database for population numbers and return the results as a JSON. '''
+
+    # Open a session, run the query, and then close the session again
+    session = Session(engine)
+    results = session.query( table2.short_name,table2.overall, table2.PotentialPoints,  table2.ValueNum, table2.age ).all()
+    session.close()
+
+    # Create a list of dictionaries, with each dictionary containing one row from the query. 
+    all_playervalue = []
+    for short_name, overall, PotentialPoints, ValueNum, age,  in results:
+        dict = {}
+
+        dict["short_name"] = short_name
+        dict["overall"] = overall
+        dict['PotentialPoints'] = PotentialPoints
+        dict["ValueNum"] = ValueNum
+        dict["age"] = age
+
+        all_playervalue.append(dict)
+
+    # Return the jsonified result. 
+    return jsonify(all_playervalue)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
