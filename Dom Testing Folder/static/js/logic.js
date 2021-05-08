@@ -154,7 +154,7 @@ var pack = d3.pack()
 
 
 // to be replaced by the app.py path /jagdata
-d3.json("/domdata").then(function(root) {
+d3.json("/d3data").then(function(root) {
 // if (error) throw error;
 
     console.log(root.name)

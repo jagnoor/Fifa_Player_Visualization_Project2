@@ -100,7 +100,7 @@ def QueryJagData():
 
 
 
-@app.route("/domdata")
+@app.route("/d3data")
 def GetParentChildData():
 
     # Query the database and store the result in a dataframe
