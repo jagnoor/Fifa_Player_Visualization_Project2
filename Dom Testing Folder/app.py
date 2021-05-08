@@ -75,7 +75,7 @@ def QueryFifadata():
 
 @app.route("/jagdata")
 def QueryJagData():
-    ''' Query the database for population numbers and return the results as a JSON. '''
+    ''' Query the database for  numbers and return the results as a JSON. '''
 
     # Open a session, run the query, and then close the session again
     session = Session(engine)
