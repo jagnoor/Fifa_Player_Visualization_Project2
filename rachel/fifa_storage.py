@@ -1,4 +1,4 @@
 
 fifa_username = 'postgres'
 
-fifa_pw = 'anthony91'
+fifa_pw = '808080'

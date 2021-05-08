@@ -4399,6 +4399,10 @@
             ]
         },
         {
+            "name": NaN,
+            "children": []
+        },
+        {
             "name": "Australia Oceania",
             "children": [
                 {

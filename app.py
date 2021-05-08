@@ -73,6 +73,29 @@ def QueryFifadata():
     # Return the jsonified result. 
     return jsonify(all_fifa)
 
+@app.route("/jagdata")
+def QueryJagData():
+    ''' Query the database for population numbers and return the results as a JSON. '''
+
+    # Open a session, run the query, and then close the session again
+    session = Session(engine)
+    jagResults = session.query(table.short_name, table.nationality, table.club, table.overall, table.continent).all()
+    session.close()
+
+    # Create a list of dictionaries, with each dictionary containing one row from the query. 
+    jag_fifa = []
+    for short_name, nationality, club, overall, continent in jagResults:
+        dict = {}
+        dict["short_name"] = short_name
+        dict['nationality'] = nationality
+        dict["club"] = club
+        dict["overall"] = overall
+        dict["continent"] = continent
+        jag_fifa.append(dict)
+
+    # Return the jsonified result. 
+    return jsonify(jag_fifa)
+
 @app.route("/compare")
 def QueryCompare():
     ''' This function runs when the browser loads the index route. 
