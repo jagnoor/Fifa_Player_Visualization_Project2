@@ -1,4 +1,5 @@
 # Import the functions we need from flask
+import pandas as pd
 from flask import Flask
 from flask import render_template 
 from flask import jsonify
@@ -73,28 +74,43 @@ def QueryFifadata():
     # Return the jsonified result. 
     return jsonify(all_fifa)
 
-@app.route("/jagdata")
-def QueryJagData():
-    ''' Query the database for  numbers and return the results as a JSON. '''
 
-    # Open a session, run the query, and then close the session again
-    session = Session(engine)
-    jagResults = session.query(table.short_name, table.nationality, table.club, table.overall, table.continent).all()
-    session.close()
+@app.route("/domdata")
+def GetParentChildData(): 
 
-    # Create a list of dictionaries, with each dictionary containing one row from the query. 
-    jag_fifa = []
-    for short_name, nationality, club, overall, continent in jagResults:
-        dict = {}
-        dict["short_name"] = short_name
-        dict['nationality'] = nationality
-        dict["club"] = club
-        dict["overall"] = overall
-        dict["continent"] = continent
-        jag_fifa.append(dict)
+  # Query the database and store the result in a dataframe
+  df = pd.read_sql_query('select * from fifa_df1', con=engine)
 
-    # Return the jsonified result. 
-    return jsonify(jag_fifa)
+   data = {}
+    data["name"] = "DISTRIBUTION OF TOP 1000 PLAERS DUE TO NATIONALITY"
+    data["children"] = []
+    # Split dataset into Continents: thank you Dom and TA's 
+
+    for continent in df['continent'].unique():
+        
+        continent_set = df[df["continent"]==continent]
+        continent_dict = {}
+        continent_dict["name"] = continent
+        continent_dict["children"] = []
+        data["children"].append(continent_dict)
+        
+        for country in continent_set['nationality'].unique():
+            
+            countries_set = continent_set[continent_set['nationality']==country][['short_name', 'overall']]
+            country_dict = {}
+            country_dict["name"] = country
+            country_dict["children"] = []
+            continent_dict['children'].append(country_dict)
+
+            
+            for player in countries_set.values:
+                
+                player_dict = {}
+                player_dict['name'] = player[0]
+                player_dict['size'] = player[1]
+                country_dict["children"].append(player_dict)
+    
+    return jsonify(data)
 
 @app.route("/compare")
 def QueryCompare():
