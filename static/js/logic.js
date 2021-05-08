@@ -42,8 +42,6 @@ console.log("logic.js loaded");
       return [key, counts[key]];
     });
 
-// sortCount has 
-
     // Sort the array based on the second element
     sortCount.sort(function (first, second) {
       return second[1] - first[1];
@@ -140,40 +138,8 @@ d3.json("/fifadata").then( club => {
 });
   
 
+// D3 Graph Code 
 
-d3.json("//playervalue").then( value => {
-
-  overSort = value.sort((a,b) => (a.overall <= b.overall) ? 1 : -1);
-
-  overFilter = overSort.slice(0,30);
-
-  clubFilter = overFilter.map(function(d) {return d.value;});
-
-  var clubCounts = {};
-  for (var i = 0; i < clubFilter.length; i++) {
-      clubCounts[clubFilter[i]] = 1 + (clubCounts[clubFilter[i]] || 0);
-}
-  console.log(clubCounts);
-
-  var trace4 = {
-    labels: ["Arsenal", "Dortmund", "Chelse", "FC Barcelona", "FC Bayern", "Inter", "Juventus", "Liverpool", "Man City", "Man U", "Napoli", "Paris SG", "Real Madrid", "Tottenham"],
-    values: [1, 1, 1, 5, 1, 1, 3, 2, 4, 1, 1, 3, 4, 2],
-    type: "pie"
-  };
-
-  var clubData = [trace4];
-
-  var clubLayout = {
-    title: "Clubs with the Most Players in the Top 30"
-  };
-
-  Plotly.newPlot("club", clubData, clubLayout);
-
-
-
-  // D3 Code for fdancy bubble grpah 
-
-  
 var svg = d3.select("svg"),
 margin = 20,
 diameter = +svg.attr("width"),
@@ -186,7 +152,9 @@ var pack = d3.pack()
 .size([diameter - margin, diameter - margin])
 .padding(2);
 
-d3.json("output.json").then(function(root) {
+
+// to be replaced by the app.py path /jagdata
+d3.json("/d3data").then(function(root) {
 // if (error) throw error;
 
     console.log(root.name)
@@ -252,4 +220,4 @@ d3.json("output.json").then(function(root) {
     }
 }).catch(function(error) {
     console.log(error);
-  })
+  });
