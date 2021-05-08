@@ -38,6 +38,33 @@ For this project we utilized PgAdmin to store our database and generate our tabl
 
     ![Screenshot 2021-05-07 172131](https://user-images.githubusercontent.com/75814760/117514105-b98de880-af58-11eb-910f-485fc844120f.jpg)
 
+## Summary
+There are three tabs that we created for this project. There is a Home page, a Comparison page and an About page. Here is a brief summary about each page.
+
+### Home
+We created this page to show a few visuals of Fifa players that played during the 2019 season. Those visuals include:
+
+1. A d3 circle graph which shows the top 2,000 Fifa players. We visualized this by creating one large circle graph which has 7 interior graphs for each continent. Inside of each continent are the countries that each player in the top 2,000 was born in and within each country are those players.
+
+1. A horizontal bar graph of the count of the top 5 countries that have produced the most Fifa players.
+
+1. A bar graph of the top 11 highest Fifa earns by wage in Euros.
+
+1. A bar graph of Fifa Athletes by Age by Count
+
+1. A pie chart of the clubs with the most players in the top 30.
+
+![Screenshot 2021-05-08 153006](https://user-images.githubusercontent.com/75814760/117552657-5f515e00-b012-11eb-8fd4-2bc9a299b9d2.jpg)
+
+### Comparison
+This page was created to show the comparison of each Fifa players Fifa 20 attributes. There is a drop down cell that allows you to select each individual player and once selected a spider chart populates showing these attributes. There is also a table which populates showing the actual value of each individual attribute. Below these visuals is a summary of what each attribute means.
+
+![Screenshot 2021-05-08 153453](https://user-images.githubusercontent.com/75814760/117552754-fae2ce80-b012-11eb-94e9-033f585cba95.jpg)
+
+### About
+Lastly this page was used to convey our purpose of the project and provide a brief summary of each page. Similarly to what was done above.
+
+![Screenshot 2021-05-08 154006](https://user-images.githubusercontent.com/75814760/117552883-b441a400-b013-11eb-9773-d166dc277c22.jpg)
 
 ## Dataset
 

@@ -22,7 +22,10 @@ console.log("logic.js loaded");
     var earnData = [trace1];
 
     var earnLayout = {
-      title: "Top 11 Fifa Earners"
+      title: "Top 11 Fifa Earners",
+      xaxis: { title: "Player Name" },
+      yaxis: { title: "Player Wage (Eur)" }
+    
     };
 
     Plotly.newPlot("high-earn", earnData, earnLayout);
@@ -62,7 +65,10 @@ console.log("logic.js loaded");
     var countData = [trace2];
 
     var countLayout = {
-      title: "Top Fifa Producing Countries"
+      title: "Top Fifa Producing Countries",
+      xaxis: { title: "Count" },
+      yaxis: { title: "Country" }
+    
     };
 
     Plotly.newPlot("country", countData, countLayout);
@@ -97,7 +103,10 @@ d3.json("/fifadata").then( age => {
   var ageData = [trace3];
 
   var ageLayout = {
-    title: "Fifa Athlete Count by Age"
+    title: "Fifa Athlete Count by Age",
+    xaxis: { title: "Age Range" },
+    yaxis: { title: "Count" }
+
   };
 
   Plotly.newPlot("age", ageData, ageLayout);
@@ -136,14 +145,14 @@ d3.json("/fifadata").then( club => {
 
   // console.log(overFilter);
 });
-  
+
 
 // D3 Graph Code 
 
 var svg = d3.select("svg"),
 margin = 20,
 diameter = +svg.attr("width"),
-g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+g = svg.append("g").attr("transform", "translate(" + (diameter - 150) + "," + diameter / 2 + ")");
 
 var color = d3.scaleSequential(d3.interpolateViridis)
 .domain([-4, 4]);
