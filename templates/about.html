@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fifa Player Comparison</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <nav class="nav justify-content-center nav-pills bg-dark" >
+    <ul class="nav">               
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="compare">Comparison</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about">About</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div style="margin-left: 10px;">
+    <h2>Fifa Player Visualization</h2>
+    <br>
+    <br>
+    <h3>Authors: Christopher Pope, Jagnoor Singh and Rachel Kerr</h3>
+    <br>
+    <br>
+    <h3>Purpose
+    <br>
+    Analysis of Fifa 20 dataset</h3>
+    <br>
+    <br>
+    <h3>Home Page</h3>
+    <h3>This page was created to show a few visuals of Fifa players that played during the 2019 season. Those visuals include:
+    <br>
+      1. A d3 circle graph which shows the top 2,000 Fifa players. We visualized this by creating one large circle graph which has 7 interior graphs for each continent. Inside of each continent are the countries that each player in the top 2,000 was born in and within each country are those players.
+    <br>
+      2. A horizontal bar graph of the count of the top 5 countries that have produced the most Fifa players.
+    <br>
+      3. A bar graph of the top 11 highest Fifa earns by wage in Euros.
+    <br>
+      4. A bar graph of Fifa Athletes by Age by Count
+    <br>
+      5. A pie chart of the clubs with the most players in the top 30.</h3>
+    <br>
+    <br>
+    <h3>Comparison Page
+    <br>
+    This page was created to show the comparison of each Fifa players Fifa 20 attributes. There is a drop down cell that allows you to select each individual player and once selected a spider chart populates showing these attributes. There is also a table which populates showing the actual value of each individual attribute. Below these visuals is a summary of what each attribute means.</h3>
+    <br>
+    <br>
+    <h3>About Page
+    <br> 
+    This page was used to convey our purpose of the project and provide a brief summary of each page. 
+    Similarly to what was done above.</h3>
+    <br>
+    <h3>Project Tasks</h3>
+    <h3>We started by analyzing the project, figuring out the tasks that needed to be worked on, and dividing the tasks amongst the team members. Our approach was to create a working prototype by simultaneously developing the code to create the necessary visualizations as well as creating the website to show or present the visualizations. We have done both. We now have working prototypes of the visualizations, and we were able to complete the process of integrating the working prototypes into the website.
+    <br>
+    <br>
+    We also accomplished:
+    <br>
+    1. Porting the code from Jupyter Notebook to the website
+    <br>
+    2. Setting up the database and Flask correctly in the database environment
+    <br>
+    3. Setting up any necessary extensions correctly
+    <br>
+    4. Routing so that when a URL is typed in the browser, the appropriate visualization is presented
+    <br>
+    5. Porting the code to Github</h3>
+
+  </div>
+
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="/static/js/app.js"></script>
+  <!-- <script src="samples.json"></script> -->
+  
+</body>
+
+</html>
