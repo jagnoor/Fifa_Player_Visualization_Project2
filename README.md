@@ -64,7 +64,7 @@ This page was created to show the comparison of each Fifa players Fifa 20 attrib
 ### About
 Lastly this page was used to convey our purpose of the project and provide a brief summary of each page. Similarly to what was done above.
 
-![Screenshot 2021-05-08 154006](https://user-images.githubusercontent.com/75814760/117552883-b441a400-b013-11eb-9773-d166dc277c22.jpg)
+![Screenshot 2021-05-10 164250](https://user-images.githubusercontent.com/75814760/117728445-184c9f80-b1af-11eb-8135-a4948e4d8bf6.jpg)
 
 ## Dataset
 
@@ -92,6 +92,10 @@ Lastly this page was used to convey our purpose of the project and provide a bri
 * Chris Pope
 
 ## Contact:
+
+__Email:__ Rachelaburime@gmail.com
+
+__Email:__ jagnoor@gmail.com
 
 __Email:__ popex107@umn.edu
 
