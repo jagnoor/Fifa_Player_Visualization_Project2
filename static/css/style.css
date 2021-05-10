@@ -3,8 +3,11 @@ svg {
   width: 1100px;
 }
 
-.navbar {
-  background: white;
+.nav {
+  font-size: 1.8em !important;
+  font-weight: 2em !important;
+  color: rgba(65, 6, 6, 0) !important;
+
 }
 
 .navbar-nav {
