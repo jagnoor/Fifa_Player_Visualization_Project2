@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Visualizations — FIFA Player Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #eee;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .viz-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .viz-section h3 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .viz-section p.description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .viz-container {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+
+        .viz-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .d3-tooltip {
+            position: absolute;
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 250px;
+            line-height: 1.5;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 16px;
+            font-size: 13px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+            display: inline-block;
+        }
+
+        .legend-rect {
+            width: 16px;
+            height: 12px;
+            margin-right: 6px;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        /* Chord diagram styles */
+        .chord-group text {
+            font-size: 11px;
+            fill: #ccc;
+        }
+
+        .chord-ribbon {
+            fill-opacity: 0.65;
+            stroke: none;
+        }
+
+        .chord-ribbon:hover {
+            fill-opacity: 0.9;
+        }
+
+        /* Network styles */
+        .link-club {
+            stroke: #4fc3f7;
+            stroke-opacity: 0.3;
+        }
+
+        .link-nationality {
+            stroke: #ff8a65;
+            stroke-opacity: 0.15;
+        }
+
+        .link-club:hover,
+        .link-nationality:hover {
+            stroke-opacity: 0.8;
+        }
+
+        /* Brush styles */
+        .brush .selection {
+            fill: rgba(0, 212, 255, 0.2);
+            stroke: #00d4ff;
+        }
+
+        .header-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filter-controls select,
+        .filter-controls button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #eee;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .filter-controls button:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .filter-controls button.active {
+            background: rgba(0, 212, 255, 0.4);
+            border-color: #00d4ff;
+        }
+
+        .stats-card {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            margin: 4px;
+        }
+
+        .stats-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .stats-card .label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav justify-content-center nav-pills bg-dark">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="compare">Comparison</a></li>
+            <li class="nav-item"><a class="nav-link active" href="visualizations">Visualizations</a></li>
+            <li class="nav-item"><a class="nav-link" href="about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <h1 class="text-center" style="color: #00d4ff;">Advanced FIFA Player Visualizations</h1>
+        <p class="header-subtitle">Interactive D3.js visualizations exploring 17,000+ FIFA 22 players across 6 continents, 162 nations, and 700+ clubs</p>
+
+        <!-- Viz 1: Force-Directed Network -->
+        <div class="viz-section" id="section-network">
+            <h3>1. Player Relationship Network</h3>
+            <p class="description">A force-directed graph of the top 80 FIFA players. Blue links connect teammates (same club), orange links connect players of the same nationality. Drag nodes to explore connections. Hover for details.</p>
+            <div class="filter-controls">
+                <button id="net-all" class="active" onclick="filterNetwork('all')">All Links</button>
+                <button id="net-club" onclick="filterNetwork('club')">Club Only</button>
+                <button id="net-nat" onclick="filterNetwork('nationality')">Nationality Only</button>
+            </div>
+            <div class="viz-container" id="network-chart"></div>
+        </div>
+
+        <!-- Viz 2: Treemap -->
+        <div class="viz-section" id="section-treemap">
+            <h3>2. Club Quality Treemap</h3>
+            <p class="description">A zoomable treemap showing the top 3,000 players organized by continent and club. Rectangle size represents the number of top players in each club. Color intensity shows average overall rating. Click to zoom, click the header to zoom out.</p>
+            <div id="treemap-breadcrumb" style="font-size:14px; margin-bottom: 10px; color: rgba(255,255,255,0.6);"></div>
+            <div class="viz-container" id="treemap-chart"></div>
+        </div>
+
+        <!-- Viz 3: Wage vs Overall Scatter -->
+        <div class="viz-section" id="section-scatter">
+            <h3>3. Wage vs Overall Rating</h3>
+            <p class="description">Each dot represents one of the top 500 rated players. The x-axis shows their overall rating, the y-axis shows their weekly wage in EUR. Brush (click and drag) to select a region and see player details. Dots are colored by continent.</p>
+            <div class="filter-controls">
+                <select id="scatter-continent" onchange="updateScatter()">
+                    <option value="all">All Continents</option>
+                </select>
+            </div>
+            <div class="row" id="scatter-stats" style="margin-bottom: 16px;"></div>
+            <div class="viz-container" id="scatter-chart"></div>
+            <div id="scatter-selection" style="margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.6);"></div>
+        </div>
+
+        <!-- Viz 4: Stacked Area -->
+        <div class="viz-section" id="section-area">
+            <h3>4. Position Distribution by Age</h3>
+            <p class="description">A stacked area chart showing how many players are in each position group (GK, DEF, MID, FWD) at each age. Hover to see exact counts. Notice how forward positions tend to peak at younger ages while defenders and goalkeepers maintain numbers longer.</p>
+            <div class="viz-container" id="area-chart"></div>
+        </div>
+
+        <!-- Viz 5: Chord Diagram -->
+        <div class="viz-section" id="section-chord">
+            <h3>5. Position Versatility Chord Diagram</h3>
+            <p class="description">This chord diagram reveals how often player positions co-occur. A thick ribbon between ST and CF means many players can play both. Hover over a position arc to highlight its connections, or hover over a ribbon to see the exact count. This reveals the most versatile position pairings in the game.</p>
+            <div class="viz-container" id="chord-chart"></div>
+        </div>
+
+        <!-- Viz 6: Radial Bar Chart -->
+        <div class="viz-section" id="section-radial">
+            <h3>6. Continent Attribute Radar Comparison</h3>
+            <p class="description">A radial chart comparing the average attribute ratings of players from each continent. Each colored polygon represents a continent. Toggle continents on/off by clicking the legend. Hover over data points for exact values.</p>
+            <div id="radial-legend" style="text-align: center; margin-bottom: 12px;"></div>
+            <div class="viz-container" id="radial-chart"></div>
+        </div>
+
+        <!-- Viz 7: Bee Swarm / Strip Plot -->
+        <div class="viz-section" id="section-swarm">
+            <h3>7. Attribute Distribution by Continent</h3>
+            <p class="description">Each dot represents a player's rating for the selected attribute. Distributions are spread vertically to avoid overlap, revealing the shape and spread of each continent's player pool. Toggle between attributes to compare. The horizontal spread shows how concentrated or dispersed each continent's talents are.</p>
+            <div class="filter-controls" id="swarm-buttons"></div>
+            <div class="viz-container" id="swarm-chart"></div>
+        </div>
+
+    </div>
+
+    <div class="d3-tooltip" id="viz-tooltip"></div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="/static/js/visualizations.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
