@@ -117,17 +117,21 @@ d3.json("/fifadata").then(data => {
     var svgEl = document.querySelector("svg");
     if (!svgEl) return;
 
-    var width = 800;
-    var height = 800;
+    // Size the chart to fit its container, keeping it square
+    var container = svgEl.parentNode;
+    var containerWidth = container.getBoundingClientRect().width;
+    var size = Math.min(containerWidth, 800);
+    var width = size;
+    var height = size;
 
     // Clear and reconfigure SVG
     svgEl.innerHTML = '';
     svgEl.setAttribute("width", width);
     svgEl.setAttribute("height", height);
     svgEl.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    svgEl.style.width = "100%";
-    svgEl.style.maxWidth = width + "px";
-    svgEl.style.height = "auto";
+    svgEl.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svgEl.style.display = "block";
+    svgEl.style.margin = "0 auto";
 
     var svg = d3.select(svgEl);
     var margin = 20;
@@ -161,7 +165,7 @@ d3.json("/fifadata").then(data => {
     var color = d3.scaleSequential(d3.interpolateViridis).domain([-1, 5]);
 
     var pack = d3.pack()
-        .size([width - margin, height - margin])
+        .size([width, height])
         .padding(3);
 
     d3.json("/d3data").then(function(rootData) {
@@ -243,7 +247,7 @@ d3.json("/fifadata").then(data => {
         svg.style("background", color(-1))
             .on("click", function() { zoom(root); });
 
-        zoomTo([root.x, root.y, root.r * 2 + margin]);
+        zoomTo([root.x, root.y, root.r * 2]);
         updateBreadcrumb(root);
 
         function zoom(d) {
@@ -253,7 +257,7 @@ d3.json("/fifadata").then(data => {
             var transition = svg.transition()
                 .duration(750)
                 .tween("zoom", function() {
-                    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+                    var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
                     return function(t) { zoomTo(i(t)); };
                 });
 
