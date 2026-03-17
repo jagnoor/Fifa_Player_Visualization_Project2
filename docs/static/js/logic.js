@@ -1,7 +1,7 @@
 console.log("logic.js loaded");
 
 // Fetch data once and build all charts
-d3.json("/fifadata").then(data => {
+d3.json("data/fifadata.json").then(data => {
 
     // =========================================================================
     // 1. Top Earners Bar Chart (dynamic)
@@ -168,7 +168,7 @@ d3.json("/fifadata").then(data => {
         .size([width, height])
         .padding(3);
 
-    d3.json("/d3data").then(function(rootData) {
+    d3.json("data/d3data.json").then(function(rootData) {
 
         var root = d3.hierarchy(rootData)
             .sum(function(d) { return d.size; })
