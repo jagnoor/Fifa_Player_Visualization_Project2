@@ -268,7 +268,7 @@ d3.json("/fifadata").then(data => {
             var k = width / v[2];
             view = v;
             node.attr("transform", function(d) {
-                return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")";
+                return "translate(" + ((d.x - v[0]) * k + width / 2) + "," + ((d.y - v[1]) * k + height / 2) + ")";
             });
             circle.attr("r", function(d) { return d.r * k; });
         }
